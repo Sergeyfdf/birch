@@ -1,0 +1,77 @@
+{
+  "expo": {
+    "name": "Birch",
+    "slug": "birch",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "birch",
+    "userInterfaceStyle": "dark",
+    "backgroundColor": "#0B1410",
+    "ios": {
+      "bundleIdentifier": "com.marzipan.birch",
+      "supportsTablet": false,
+      "icon": "./assets/images/icon.png",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false,
+        "NSAppTransportSecurity": {
+          "NSAllowsArbitraryLoads": true,
+          "NSAllowsLocalNetworking": true
+        },
+        "NSLocalNetworkUsageDescription": "Birch подключается к твоему серверу в локальной сети, чтобы искать и качать музыку",
+        "UIFileSharingEnabled": true,
+        "LSSupportsOpeningDocumentsInPlace": false,
+        "CFBundleDocumentTypes": [
+          {
+            "CFBundleTypeName": "Audio",
+            "CFBundleTypeRole": "Viewer",
+            "LSHandlerRank": "Alternate",
+            "LSItemContentTypes": [
+              "public.audio",
+              "public.mp3",
+              "public.mpeg-4-audio",
+              "com.apple.m4a-audio",
+              "public.aac-audio",
+              "com.microsoft.waveform-audio",
+              "public.aiff-audio",
+              "org.xiph.flac",
+              "com.apple.coreaudio-format"
+            ]
+          }
+        ]
+      }
+    },
+    "android": {
+      "package": "com.marzipan.birch",
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "output": "single",
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#0B1410",
+          "image": "./assets/images/splash-icon.png",
+          "imageWidth": 140
+        }
+      ],
+      [
+        "expo-audio",
+        {
+          "microphonePermission": false,
+          "recordAudioAndroid": false,
+          "enableBackgroundPlayback": true
+        }
+      ],
+      "expo-font"
+    ],
+    "experiments": {
+      "typedRoutes": false,
+      "reactCompiler": true
+    }
+  }
+}
