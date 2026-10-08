@@ -66,8 +66,8 @@ function trackById(id: string | undefined): Track | undefined {
   return id ? useLibrary.getState().tracks[id] : undefined;
 }
 
-export function currentTrack() {
-  const { queue, index } = usePlayer.getState();
+export function currentTrack(state?: PlayerState) {
+  const { queue, index } = state || usePlayer.getState();
   return trackById(queue[index]);
 }
 
