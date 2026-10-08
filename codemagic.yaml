@@ -1,0 +1,45 @@
+workflows:
+  ios-unsigned-build:
+    name: Birch iOS Unsigned Build (IPA)
+    instance_type: mac_mini_m2
+    # Переходим в папку с приложением (наш Expo-проект лежит в app)
+    working_directory: app
+    cache:
+      cache_paths:
+        - $CM_BUILD_DIR/app/node_modules
+        - $HOME/Library/Caches/CocoaPods
+    environment:
+      node: 20
+      vars:
+        IOS_WORKSPACE: "ios/Birch.xcworkspace"
+        IOS_SCHEME: "Birch"
+    scripts:
+      - name: Install dependencies
+        script: npm install
+      - name: Expo Prebuild (Generate iOS Folder)
+        script: npx expo prebuild --platform ios --clean
+      - name: Install CocoaPods
+        script: cd ios && pod install
+      - name: Build IPA (unsigned)
+        script: |
+          xcodebuild archive \
+          -workspace "$IOS_WORKSPACE" \
+          -scheme "$IOS_SCHEME" \
+          -sdk iphoneos \
+          -configuration Release \
+          -archivePath "$CM_BUILD_DIR/app/Birch.xcarchive" \
+          CODE_SIGNING_ALLOWED=NO
+      - name: Copy .app file to new folder payload
+        script: |
+          mkdir -p "$CM_BUILD_DIR/app/Payload"
+          cp -r "$CM_BUILD_DIR/app/Birch.xcarchive/Products/Applications/$IOS_SCHEME.app" "$CM_BUILD_DIR/app/Payload/"
+      - name: Create unsigned .ipa
+        script: |
+          cd "$CM_BUILD_DIR/app"
+          zip -r "$CM_BUILD_DIR/app/Birch.ipa" Payload
+      - name: Move .ipa to artifacts folder
+        script: |
+          mkdir -p "$CM_BUILD_DIR/app/build/ios/ipa"
+          mv "$CM_BUILD_DIR/app/Birch.ipa" "$CM_BUILD_DIR/app/build/ios/ipa/Birch.ipa"
+    artifacts:
+      - build/ios/ipa/*.ipa

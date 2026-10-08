@@ -1,0 +1,14 @@
+services:
+  birch:
+    build: .
+    container_name: birch
+    restart: unless-stopped
+    ports:
+      - "8787:8787"
+    environment:
+      BIRCH_TOKEN: ${BIRCH_TOKEN:-}
+      CACHE_TTL_HOURS: 24
+      MAX_PARALLEL_DOWNLOADS: 3
+      YTDLP_COOKIES: /data/cookies.txt
+    volumes:
+      - ./data:/data
