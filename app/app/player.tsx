@@ -62,7 +62,7 @@ export default function PlayerScreen() {
 
       <View style={styles.artContainer}>
         <Image 
-          source={track.artwork || require('@/../assets/images/icon.png')} 
+          source={track.artwork || require('../../assets/images/icon.png')} 
           style={styles.art} 
           contentFit="cover"
           transition={200}

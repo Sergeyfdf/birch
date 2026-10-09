@@ -43,7 +43,7 @@ export function MiniPlayer() {
 
         <View style={styles.content}>
           <Image
-            source={track.artwork || require('@/../assets/images/icon.png')}
+            source={track.artwork || require('../../assets/images/icon.png')}
             style={styles.art}
             contentFit="cover"
             transition={200}

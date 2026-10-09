@@ -11,7 +11,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import { colors } from '@/theme';
 
-SplashScreen.preventAutoHideAsync();
+SplashScreen.preventAutoHideAsync().catch(() => {});
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
@@ -25,7 +25,7 @@ export default function RootLayout() {
 
   useEffect(() => {
     if (loaded || error) {
-      SplashScreen.hideAsync();
+      SplashScreen.hideAsync().catch(() => {});
     }
   }, [loaded, error]);
 
@@ -38,7 +38,7 @@ export default function RootLayout() {
       <GestureHandlerRootView style={styles.container}>
         <StatusBar style="light" />
         <Image 
-          source={require('@/../assets/images/forest.jpg')} 
+          source={require('../assets/images/forest.jpg')} 
           style={styles.bg} 
           resizeMode="cover" 
         />
@@ -61,6 +61,5 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     opacity: 0.8,
-    zIndex: -1,
   }
 });

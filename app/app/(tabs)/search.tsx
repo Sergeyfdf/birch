@@ -145,7 +145,7 @@ export default function SearchScreen() {
             return (
               <View style={styles.row}>
                 <Image 
-                  source={t.artwork || require('@/../assets/images/icon.png')} 
+                  source={t.artwork || require('../../../assets/images/icon.png')} 
                   style={styles.art} 
                   contentFit="cover" 
                 />
